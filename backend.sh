@@ -12,10 +12,10 @@ N="\e[0m"
 
 
 VALIDATE(){
-if [$1 -ne 0 ]
+if [ $1 -ne 0 ]
 then 
     echo "$2 ...FAILURE"
-    exit2
+    exit1
 else 
     echo "$2.... SUCCESS"
 fi
@@ -37,7 +37,7 @@ dnf module enable nodejs:20 -y
 VALIDATE $? "Enableing the Nodejs:20"
 
 dnf install nodejs -y
-VALIDATE $? "Enableing the Nodejs:20"
+VALIDATE $? "Installing the nodejs"
 
 id expense
 if [ $? -ne 0 ]
@@ -46,18 +46,17 @@ then
     VALIDATE $? "please create the user if not exit" 
 else
     echo "Already user is existed ...$Y SKPPOING FOR NOW $N"
-if
+fi
 
-mkdir /app 
+mkdir -p /app 
 VALIDATE $? "Creating app directory"
 
 curl -o /tmp/backend.zip https://expense-builds.s3.us-east-1.amazonaws.com/expense-backend-v2.zip
 VALIDATE $? "unzipping the file"
 
 cd /app
-VALIDATE $? "Calling to app directory"
-
+rm -rf /app/*
 unzip /tmp/backend.zip
 VALIDATE $? "Unzipping the backend file"
-
-nmp install
+cd /app
+npm  install
