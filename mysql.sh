@@ -29,10 +29,10 @@ else
 fi
 
 dnf install mysql-server -y &>>LOGFILE
-VALIDATE $? "installing MYSQL server"
+VALIDATE $? "Installing MYSQL server"
 
 systemctl enable mysqld  &>>LOGFILE
-VALIDATE $? "enabling the MYSQL server"
+VALIDATE $? "Enabling the MYSQL server"
  
 systemctl start mysqld &>>LOGFILE
 VALIDATE $?  "Starting  the MYSQL server"
