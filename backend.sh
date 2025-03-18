@@ -19,7 +19,7 @@ then
 else 
     echo "$2.... SUCCESS"
 fi
-    
+
 }
 
 if [ $USERID -ne 0 ]
@@ -38,3 +38,29 @@ VALIDATE $? "Enableing the Nodejs:20"
 
 dnf install nodejs -y
 VALIDATE $? "Enableing the Nodejs:20"
+
+id expenses 
+if [ $? -ne 0 ]
+then 
+    useradd expense
+    VALIDATE $? "please create the user if not exit" 
+else
+    echo "Already user is existed ...$Y SKPPOING FOR NOW $Y"
+if
+
+mkdir /app 
+VALIDATE $? "Creating app directory"
+
+curl -o /tmp/backend.zip https://expense-builds.s3.us-east-1.amazonaws.com/expense-backend-v2.zip
+VALIDATE $? "unzipping the file"
+
+cd /app
+VALIDATE $? "Cahing to app directory"
+
+unzip /tmp/backend.zip
+VALIDATE $? "Unzipping the backend file"
+
+nmp install
+VALIDATE $? "Installing the npm Dependencies"
+
+
