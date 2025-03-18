@@ -31,10 +31,10 @@ fi
 dnf install mysql-server -y &>>LOGFILE
 VALIDATE $? "installing MYSQL server"
 
-dnf enable mysqld  &>>LOGFILE
+systemclt enable mysqld  &>>LOGFILE
 VALIDATE $? "enabling the MYSQL server"
-
-dnf start mysqld &>>LOGFILE
+ 
+systemclt start mysqld &>>LOGFILE
 VALIDATE $?  "Starting  the MYSQL server"
 
 
