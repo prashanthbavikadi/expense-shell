@@ -2,7 +2,7 @@
 
 USERID=$(id -u )
 TIMESTAMP=$(date +%F-%H-%M-%S)
-SCRIPT_NAME=$(echo $0 | cut -d "." )
+SCRIPT_NAME=$(echo $0 | cut -d "." -f1)
 LOGFILE=/tmp/$SCRIPT_NAME-$TIMESTAMP.log
 R="\e[31m"
 G="\e[32m"
@@ -46,4 +46,11 @@ VALIDATE $? "Setting up root password"
 # VALIDATE $? "Setting up root password"
 
 #Below code will be useful for idempotent nature 
-
+mysql -h <MYSQL-SERVER-IPADDRESS> -uroot -p${mysql_root_password} -e 'show databases;' &>>$LOGFILE
+if [ $? -ne 0 ]
+then 
+    mysql_secure_installation --set-root-pass ${mysql_root_password} &>>$LOGFILE
+    VALIDATE $? "MYSQL  Root Password setup"
+else 
+    echo -e "MYSQL root password is already setup ...$Y SKIP $N"
+fi         
