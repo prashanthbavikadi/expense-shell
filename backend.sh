@@ -16,10 +16,10 @@ read -s mysql_root_password
 VALIDATE(){
 if [ $1 -ne 0 ]
 then 
-    echo "$2 ...FAILURE"
-    exit1
+    echo -e "$2...$R FAILURE $N"
+    exit 1
 else 
-    echo "$2.... SUCCESS"
+    echo -e "$2...$G SUCCESS $N"
 fi
 
 }
@@ -27,30 +27,30 @@ fi
 if [ $USERID -ne 0 ]
 then 
     echo "please run this script with root access"
-    exit2
+    exit 1  # manually exit if error comes.
 else 
-    echo " you are in superuser"
+    echo "you are in superuser"
 fi
 
-dnf module disable nodejs -y
+dnf module disable nodejs -y &>>$LOGFILE
 VALIDATE $? "Disabling the Nodejs"
 
-dnf module enable nodejs:20 -y
+dnf module enable nodejs:20 -y &>>$LOGFILE
 VALIDATE $? "Enableing the Nodejs:20"
 
-dnf install nodejs -y
+dnf install nodejs -y &>>$LOGFILE
 VALIDATE $? "Installing the nodejs"
 
-id expense
+id expense &>>$LOGFILE
 if [ $? -ne 0 ]
 then 
-    useradd expense
+    useradd expense &>>$LOGFILE
     VALIDATE $? "please create the user if not exit" 
 else
     echo "Already user is existed ...$Y SKPPOING FOR NOW $N"
 fi
 
-mkdir -p /app 
+mkdir -p /app &>>$LOGFILE
 VALIDATE $? "Creating app directory"
 
 curl -o /tmp/backend.zip https://expense-builds.s3.us-east-1.amazonaws.com/expense-backend-v2.zip
@@ -58,10 +58,10 @@ VALIDATE $? "unzipping the file"
 
 cd /app
 rm -rf /app/*
-unzip /tmp/backend.zip
+unzip /tmp/backend.zip &>>$LOGFILE
 VALIDATE $? "Unzipping the backend file"
 cd /app
-npm  install
+npm  install &>>$LOGFILE
 VALIDATE $? "Installing nodejs dependencies"
 
 #check your repo and path
