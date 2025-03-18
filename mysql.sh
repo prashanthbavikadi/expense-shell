@@ -22,7 +22,7 @@ fi
 
 }
 
-if [$USERID -ne 0 ]
+if [ $USERID -ne 0 ]
 then 
     echo "please the run the root access"
     exit2
