@@ -1,10 +1,9 @@
 #!/bin/bash
 
-USERID=$(id -u )
+USERID=$(id -u)
 TIMESTAMP=$(date +%F-%H-%M-%S)
 SCRIPT_NAME=$(echo $0 |cut -d "." -f1 )
 LOGFILE=/tmp/$SCRIPT_NAME-$TIMESTAMP.log
-
 R="\e[31m"
 Y="\e[32m"
 Y="\e[33m"
@@ -47,7 +46,7 @@ then
     useradd expense &>>$LOGFILE
     VALIDATE $? "please create the user if not exit" 
 else
-    echo "Already user is existed ... $Y SKPPOING FOR NOW $N"
+    echo "Already user is existed ... $Y SKPPING FOR NOW $N"
 fi
 
 mkdir -p /app &>>$LOGFILE
@@ -60,6 +59,7 @@ cd /app
 rm -rf /app/*
 unzip /tmp/backend.zip &>>$LOGFILE
 VALIDATE $? "Unzipping the backend file"
+
 cd /app
 npm  install &>>$LOGFILE
 VALIDATE $? "Installing nodejs dependencies"
