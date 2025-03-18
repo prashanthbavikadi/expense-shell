@@ -39,7 +39,7 @@ VALIDATE $? "Enableing the Nodejs:20"
 dnf install nodejs -y
 VALIDATE $? "Enableing the Nodejs:20"
 
-id expenses 
+id expense
 if [ $? -ne 0 ]
 then 
     useradd expense
