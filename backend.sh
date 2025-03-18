@@ -45,7 +45,7 @@ then
     useradd expense
     VALIDATE $? "please create the user if not exit" 
 else
-    echo "Already user is existed ...$Y SKPPOING FOR NOW $Y"
+    echo "Already user is existed ...$Y SKPPOING FOR NOW $N"
 if
 
 mkdir /app 
