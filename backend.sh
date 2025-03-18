@@ -18,6 +18,8 @@ then
     exit2
 else 
     echo "$2.... SUCCESS"
+fi
+    
 }
 
 if [ $USERID -ne 0 ]
