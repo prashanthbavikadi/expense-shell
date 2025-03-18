@@ -16,10 +16,10 @@ read  mysql_root_password #if you put -s password cannot displed while entering
 VALIDATE(){
    if [ $1 -ne 0 ]
    then
-        echo -e "$2...$R FAILURE $N"
+        echo -e "$2 ...$R FAILURE $N"
         exit 1
     else
-        echo -e "$2...$G SUCCESS $N"
+        echo -e "$2 ...$G SUCCESS $N"
     fi
 }
 
@@ -47,7 +47,7 @@ then
     useradd expense &>>$LOGFILE
     VALIDATE $? "please create the user if not exit" 
 else
-    echo "Already user is existed ... $Y SKPPING FOR NOW $N"
+    echo "Already user is existed ...$Y SKPPING FOR NOW $N"
 fi
 
 mkdir -p /app &>>$LOGFILE
@@ -66,7 +66,8 @@ npm  install &>>$LOGFILE
 VALIDATE $? "Installing nodejs dependencies"
 
 #check your repo and path
-cp /home/ec2-user/expense-shell/backend.service /etc/systemd/system/backend.service
+cp /home/ec2-user/expense-shell/backend.service /etc/systemd/system/backend.service &>>$LOGFILE
+VALIDATE $? "Copied backend service"
 
 systemctl daemon-reload >>$LOGFILE
 VALIDATE $? "Reloading the deamon"
