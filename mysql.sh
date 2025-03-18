@@ -17,7 +17,7 @@ then
     echo -e "$2  $R FAILURE"
     exit1
 else 
-    echo -e "$2  $G SUCCESS"
+    echo -e .."$2  $G SUCCESS"
 fi
 
 }
