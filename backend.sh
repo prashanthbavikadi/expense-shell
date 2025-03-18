@@ -10,6 +10,8 @@ Y="\e[32m"
 Y="\e[33m"
 N="\e[0m"
 
+echo "Please provide DB password:"
+read -s mysql_root_password
 
 VALIDATE(){
 if [ $1 -ne 0 ]
@@ -60,3 +62,25 @@ unzip /tmp/backend.zip
 VALIDATE $? "Unzipping the backend file"
 cd /app
 npm  install
+VALIDATE $? "Installing nodejs dependencies"
+
+#check your repo and path
+cp /home/ec2-user/expense-shell/backend.service /etc/systemd/system/backend.service
+
+systemctl daemon-reload >>$LOGFILE
+VALIDATE $? "Reloading the deamon"
+
+systemctl start backend >>$LOGFILE
+VALIDATE $? "Starting backend"
+
+systemctl enable backend  >>$LOGFILE
+VALIDATE $? "Enabling backend"
+
+dnf install mysql -y &>>$LOGFILE
+VALIDATE $? "Installing MySQL Client"
+
+mysql -h db.apaws10s.online -uroot -p${mysql_root_password} < /app/schema/backend.sql &>>$LOGFILE
+VALIDATE $? "Schema loading"
+
+systemctl restart backend &>>$LOGFILE
+VALIDATE $? "Restarting Backend"
