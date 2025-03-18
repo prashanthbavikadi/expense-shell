@@ -81,7 +81,7 @@ VALIDATE $? "Enabling backend"
 dnf install mysql -y &>>$LOGFILE
 VALIDATE $? "Installing MySQL Client"
 
-mysql -h db.jpaws10s.online -uroot -p${mysql_root_password} < /app/schema/backend.sql 
+mysql -h 172.31.93.44 -uroot -p${mysql_root_password} < /app/schema/backend.sql 
 VALIDATE $? "Schema loading"
 
 systemctl restart backend &>>$LOGFILE
