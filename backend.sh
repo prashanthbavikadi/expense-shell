@@ -62,5 +62,3 @@ VALIDATE $? "Unzipping the backend file"
 
 nmp install
 VALIDATE $? "Installing the npm Dependencies"
-
-
