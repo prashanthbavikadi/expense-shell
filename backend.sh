@@ -11,15 +11,15 @@ Y="\e[33m"
 N="\e[0m"
 
 echo "Please provide DB password:"
-read -s mysql_root_password
+read  mysql_root_password #if you put -s password cannot displed while entering
 
 VALIDATE(){
 if [ $1 -ne 0 ]
 then 
-    echo -e "$2...$R FAILURE $N"
+    echo -e "$2... $R FAILURE $N"
     exit 1
 else 
-    echo -e "$2...$G SUCCESS $N"
+    echo -e "$2... $G SUCCESS $N"
 fi
 
 }
@@ -47,7 +47,7 @@ then
     useradd expense &>>$LOGFILE
     VALIDATE $? "please create the user if not exit" 
 else
-    echo "Already user is existed ...$Y SKPPOING FOR NOW $N"
+    echo "Already user is existed ... $Y SKPPOING FOR NOW $N"
 fi
 
 mkdir -p /app &>>$LOGFILE
